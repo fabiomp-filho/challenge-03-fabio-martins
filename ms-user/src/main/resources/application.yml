@@ -19,3 +19,7 @@ api:
   security:
     token:
       secret: ${JWT_SECRET:my-secret-key}
+# swagger-ui custom path
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
