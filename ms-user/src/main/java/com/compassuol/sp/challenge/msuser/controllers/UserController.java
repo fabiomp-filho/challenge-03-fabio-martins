@@ -1,6 +1,8 @@
 package com.compassuol.sp.challenge.msuser.controllers;
 
 import com.compassuol.sp.challenge.msuser.domain.dto.*;
+import com.compassuol.sp.challenge.msuser.domain.entities.User;
+import com.compassuol.sp.challenge.msuser.infra.security.TokenService;
 import com.compassuol.sp.challenge.msuser.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,24 +21,22 @@ public class UserController {
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
 
-    public UserController(UserService userService, AuthenticationManager authenticationManager) {
+    private final TokenService tokenService;
+
+    public UserController(UserService userService, AuthenticationManager authenticationManager, TokenService tokenService) {
         this.userService = userService;
         this.authenticationManager = authenticationManager;
-
+        this.tokenService = tokenService;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody UserLoginDTO userLoginDTO) {
-        try {
-            Authentication authentication = authenticationManager
-                    .authenticate(new UsernamePasswordAuthenticationToken(userLoginDTO.getEmail(), userLoginDTO.getPassword()));
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            return ResponseEntity.ok("User login successfully!");
-        } catch (BadCredentialsException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed: Invalid username or password.");
-        } catch (AuthenticationException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed: " + e.getMessage());
-        }
+    public ResponseEntity<TokenDTO> login(@RequestBody UserLoginDTO userLoginDTO) {
+        var usernamePassword = new UsernamePasswordAuthenticationToken(userLoginDTO.getEmail(), userLoginDTO.getPassword());
+        var auth = this.authenticationManager.authenticate(usernamePassword);
+
+        var token = tokenService.generateToken((User) auth.getPrincipal());
+
+        return ResponseEntity.status(HttpStatus.OK).body(new TokenDTO(token));
     }
 
     @PutMapping("/users/{id}")

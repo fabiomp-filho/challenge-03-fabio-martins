@@ -5,6 +5,7 @@ import jakarta.validation.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -35,6 +36,20 @@ public class GlobalExceptionHandler {
                 400,
                 HttpStatus.BAD_REQUEST.name(),
                 "Invalid request",
+                details
+        );
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler({UsernameNotFoundException.class})
+    public ExceptionsResponse handleExceptionsBadRequest(UsernameNotFoundException e) {
+
+        List<FieldErrorRecord> details = new ArrayList<>();
+
+        return new ExceptionsResponse(
+                400,
+                HttpStatus.BAD_REQUEST.name(),
+                "User/Password Incorrect!",
                 details
         );
     }

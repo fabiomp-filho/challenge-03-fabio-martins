@@ -9,6 +9,7 @@ import com.compassuol.sp.challenge.msuser.exception.NotFoundException;
 import com.compassuol.sp.challenge.msuser.exception.PasswordException;
 import com.compassuol.sp.challenge.msuser.mapper.UserMapper;
 import com.compassuol.sp.challenge.msuser.repositories.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,6 +31,7 @@ public class UserService implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Transactional
     public UserResponseDTO createUser(UserRegistrationDTO userRegistrationDTO) {
         if(userRegistrationDTO.getPassword().length() < 6){
             throw new PasswordException();
@@ -40,6 +42,7 @@ public class UserService implements UserDetailsService {
         return UserMapper.toDto(UserSaved);
     }
 
+    @Transactional
     public UserResponseDTO updateUser(Long userId, UserUpdateDTO userUpdateDTO) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException());
@@ -52,13 +55,11 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new NotFoundException());
-
-        Set<GrantedAuthority> authorities = user.getAuthorities().stream()
-                .map((role) -> new SimpleGrantedAuthority(role.getAuthority()))
-                .collect(Collectors.toSet());
-
-        return new org.springframework.security.core.userdetails.User(email, user.getPassword(), authorities);
+        UserDetails user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found: " + email);
+        }
+        return user;
     }
 
     public UserResponseDTO getUser(Long id) {
@@ -68,6 +69,7 @@ public class UserService implements UserDetailsService {
         return UserMapper.toDto(user);
     }
 
+    @Transactional
     public UserResponseDTO updatePassword(Long id, UserPasswordUpdateDTO userPasswordUpdateDTO) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException());
