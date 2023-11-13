@@ -19,9 +19,9 @@ import org.springframework.security.core.Authentication;
 
 import java.sql.Date;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;;
-
 
 @ExtendWith(MockitoExtension.class)
 public class UserControllerTest {

@@ -1,8 +1,5 @@
 package com.compassuol.sp.challenge.service;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
 import com.compassuol.sp.challenge.msuser.domain.dto.UserPasswordUpdateDTO;
 import com.compassuol.sp.challenge.msuser.domain.dto.UserRegistrationDTO;
 import com.compassuol.sp.challenge.msuser.domain.dto.UserResponseDTO;
@@ -13,8 +10,6 @@ import com.compassuol.sp.challenge.msuser.exception.NotFoundException;
 import com.compassuol.sp.challenge.msuser.exception.PasswordException;
 import com.compassuol.sp.challenge.msuser.repositories.UserRepository;
 import com.compassuol.sp.challenge.msuser.services.UserService;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,6 +21,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.sql.Date;
 import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
@@ -81,9 +79,7 @@ public class UserServiceTest {
 
         when(userRepository.findById(userId)).thenReturn(Optional.empty());
 
-        assertThrows(NotFoundException.class, () -> {
-            userService.updateUser(userId, userUpdateDTO);
-        });
+        assertThrows(NotFoundException.class, () -> userService.updateUser(userId, userUpdateDTO));
 
         verify(userRepository, times(1)).findById(userId);
     }
@@ -93,9 +89,7 @@ public class UserServiceTest {
         UserRegistrationDTO userRegistrationDTO = new UserRegistrationDTO("maria", "silva", "000.000.000-00", Date.valueOf("2000-08-08"), "maria@mail.com", "123456");
         userRegistrationDTO.setPassword("123"); // Senha muito curta
 
-        assertThrows(PasswordException.class, () -> {
-            userService.createUser(userRegistrationDTO);
-        });
+        assertThrows(PasswordException.class, () -> userService.createUser(userRegistrationDTO));
 
         verify(userRepository, never()).save(any(User.class));
     }
@@ -117,9 +111,7 @@ public class UserServiceTest {
         String email = "inexistente@example.com";
         when(userRepository.findByEmail(email)).thenReturn(null);
 
-        assertThrows(UsernameNotFoundException.class, () -> {
-            userService.loadUserByUsername(email);
-        });
+        assertThrows(UsernameNotFoundException.class, () -> userService.loadUserByUsername(email));
 
         verify(userRepository, times(1)).findByEmail(email);
     }
