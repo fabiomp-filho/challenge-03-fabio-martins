@@ -66,11 +66,7 @@ The API offers the following endpoints:
 
 ## Security
 
-The API uses Spring Security for user authentication and authorization. Credentials are passed via HTTP Basic Auth.
-
-## Contributions
-
-Contributions are always welcome. Feel free to clone, fork, or submit pull requests.
+The API uses Spring Security for user authentication and authorization. Credentials are passed via JWT Token.
 
 ## Contact
 
