@@ -19,7 +19,7 @@ This project is a Spring Boot API for user management. It uses Spring Security f
 
 ## Prerequisites
 
-- Java 11 or higher
+- Java 17
 - Maven (for project construction and management)
 
 ## How to Execute
