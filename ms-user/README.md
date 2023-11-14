@@ -1,81 +1,77 @@
 
 # MS User API
 
-Este projeto é uma API Spring Boot para gerenciamento de usuários. Ele utiliza Spring Security para autenticação e autorização, e oferece documentação interativa da API com Swagger (Springdoc-OpenAPI).
+This project is a Spring Boot API for user management. It uses Spring Security for authentication and authorization and provides interactive API documentation with Swagger (Springdoc-OpenAPI).
 
-## Características
+## Features
 
-- CRUD de usuários.
-- Autenticação e autorização com Spring Security.
-- Documentação da API com Swagger (Springdoc-OpenAPI).
+- CRUD operations for users.
+- Authentication and authorization with Spring Security.
+- API documentation with Swagger (Springdoc-OpenAPI).
 
-## Tecnologias Utilizadas
+## Technologies Used
 
 - Spring Boot
 - Spring Security
 - Spring Data JPA
 - Springdoc-OpenAPI (Swagger)
-- Banco de dados H2 (em memória) para testes
+- H2 Database (in-memory) for testing
 
-## Pré-requisitos
+## Prerequisites
 
-- Java 11 ou superior
-- Maven (para construção e gestão do projeto)
+- Java 11 or higher
+- Maven (for project construction and management)
 
-## Como Executar
+## How to Execute
 
-Para executar a aplicação, siga os seguintes passos:
+To run the application, follow these steps:
 
-1. Clone o repositório:
+1. Clone the repository:
 
    ```bash
-   git clone [URL do Repositório]
+   git clone [[Repository URL]](https://github.com/fabiomp-filho/challenge-03-fabio-martins.git)
    ```
 
-2. Navegue até a pasta do projeto:
+2. Navigate to the project folder:
 
    ```bash
    cd ms-user
    ```
 
-3. Execute a aplicação utilizando o Maven:
+3. Execute the application using Maven:
 
    ```bash
    mvn spring-boot:run
    ```
 
-4. A aplicação estará disponível em `http://localhost:8080`.
+4. The application will be available at `http://localhost:8080`.
 
-## Acessando a Documentação da API
+## Accessing the API Documentation
 
-Após iniciar a aplicação, você pode acessar a documentação da API Swagger através do seguinte URL:
+After starting the application, you can access the Swagger API documentation through the following URL:
 
 ```
 http://localhost:8080/swagger-ui/index.html
 ```
 
-## Endpoints da API
+## API Endpoints
 
-A API oferece os seguintes endpoints:
+The API offers the following endpoints:
 
-- `POST /v1/login`: Endpoint para autenticação de usuários.
-- `GET /v1/users/{id}`: Endpoint para obter detalhes de um usuário específico.
-- `POST /v1/users`: Endpoint para criação de um novo usuário.
-- `PUT /v1/users/{id}`: Endpoint para atualização de um usuário existente.
-- `PUT /v1/users/{id}/password`: Endpoint para atualização da senha de um usuário.
+- `POST /v1/login`: Endpoint for user authentication.
+- `GET /v1/users/{id}`: Endpoint to obtain details of a specific user.
+- `POST /v1/users`: Endpoint for creating a new user.
+- `PUT /v1/users/{id}`: Endpoint for updating an existing user.
+- `PUT /v1/users/{id}/password`: Endpoint for updating a user's password.
 
-## Segurança
+## Security
 
-A API utiliza Spring Security para autenticação e autorização de usuários. As credenciais são passadas via HTTP Basic Auth.
+The API uses Spring Security for user authentication and authorization. Credentials are passed via HTTP Basic Auth.
 
-## Contribuições
+## Contributions
 
-Contribuições são sempre bem-vindas. Sinta-se à vontade para clonar, fazer fork ou enviar pull requests.
+Contributions are always welcome. Feel free to clone, fork, or submit pull requests.
 
-## Licença
+## Contact
 
-[Inserir informações da licença aqui]
-
-## Contato
-
-[Seu Nome] - [Seu E-mail]
+Fabio Martins - fabio.filho0820@gmail.com
