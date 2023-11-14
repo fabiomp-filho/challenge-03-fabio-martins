@@ -29,7 +29,7 @@ To run the application, follow these steps:
 1. Clone the repository:
 
    ```bash
-   git clone [[Repository URL]](https://github.com/fabiomp-filho/challenge-03-fabio-martins.git)
+   git clone https://github.com/fabiomp-filho/challenge-03-fabio-martins.git
    ```
 
 2. Navigate to the project folder:
